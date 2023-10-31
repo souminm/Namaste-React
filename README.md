@@ -18,3 +18,27 @@ Namaste React Course
 -HTTP's
 -Tree Shaking - remove unused code 
 Different dev and production bundles
+
+
+# Food Ordering App
+ * Header
+ *  - logo
+ *  - Nav Items
+ * Body
+ *  - Search
+ *  - Restaurant Container
+ *    - Restaurant Cards
+ *      - Img
+ *      - Name of Res, Star Rating , Cuisines , deliveryTime, etc
+ * footer
+ *  - Copyright
+ *  - Links
+ *  - Address
+ *  - Contact
+
+
+# React Hooks
+  * Normal JS Utility Functions written by Facebook developers inside React
+   Two most imports hooks -
+   1) useState();
+   2) useEffect();
