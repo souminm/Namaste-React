@@ -1,47 +1,52 @@
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/mockData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Shimmer from "./Shimmer";
 
-// let data = [
-//   {
-//     info: {
-//       id: "5938",
-//       name: "Burger King",
-//       cloudinaryImageId: "e33e1d3ba7d6b2bb0d45e1001b731fcf",
-//       locality: "Tasker Town",
-//       areaName: "Shivaji Nagar",
-//       costForTwo: "₹350 for two",
-//       cuisines: ["Burgers", "American"],
-//       avgRating: 4.1,
-//       parentId: "166",
-//       avgRatingString: "4.1",
-//       totalRatingsString: "10K+",
-//     },
-//   },
-//   {
-//     info: {
-//       id: "43836",
-//       name: "McDonald's",
-//       cloudinaryImageId: "bb7ae131544c7d37e10fc5faf76f09d6",
-//       locality: "MG Road",
-//       areaName: "Ashok Nagar",
-//       costForTwo: "₹400 for two",
-//       cuisines: ["Burgers", "Beverages", "Cafe", "Desserts"],
-//       avgRating: 3.8,
-//       parentId: "630",
-//       avgRatingString: "3.8",
-//       totalRatingsString: "10K+",
-//     },
-//   },
-// ];
-
-// console.log(data, "data");
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
-//   console.log(listOfRestaurants, "list");
-  return (
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredRestaurant,setFilteredRestaurant] = useState([]);
+  const [searchText,setSearchText] = useState("");
+  //   console.log(listOfRestaurants, "list");
+ console.log('body');
+  useEffect(() => {
+    console.log("useEffect called");
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+    console.log(json, "json");
+    setListOfRestaurants(
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+  };
+
+  //Conditional Rendering
+  // if (listOfRestaurants.length === 0) {
+  //   return <Shimmer/>;
+  // }
+  return listOfRestaurants.length === 0? <Shimmer/> :(
     <div className="body">
       <div className="filter">
+        <div className="search">
+          <input type="text" className="search-box" value={searchText} onChange={(e)=>{
+               setSearchText(e.target.value);
+              //  const filteredData =listOfRestaurants.filter((res)=> res.info?.name.toLowerCase().includes(searchText.toLowerCase()))
+              //  setFilteredRestaurant(filteredData);
+          }}/>
+          <button onClick={()=>{
+            //filter by restaurant card and render the ui
+            //searchText
+            console.log(searchText);
+            const filteredData =listOfRestaurants.filter((res)=> res.info?.name.toLowerCase().includes(searchText.toLowerCase()))
+            setFilteredRestaurant(filteredData);
+
+          }}>Search</button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
@@ -49,8 +54,8 @@ const Body = () => {
             const filteredList = listOfRestaurants.filter(
               (res) => res.info.avgRatingString > 4.4
             );
-            setListOfRestaurants(filteredList);
-            console.log(listOfRestaurants, "filteredList");  // 20 why not 7?
+            setFilteredRestaurant(filteredList);
+            console.log(filteredRestaurant, "filteredList"); // 20 why not 7?
             // console.log(data, "filtered List");
           }}
         >
@@ -59,7 +64,7 @@ const Body = () => {
       </div>
       <div className="res-container">
         {/* <RestaurantCard resData={resList[0]} /> */}
-        {listOfRestaurants.map((res) => (
+        {filteredRestaurant.map((res) => (
           <RestaurantCard key={res.info.id} resData={res} />
         ))}
       </div>
