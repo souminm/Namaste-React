@@ -1,14 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { LOGO_URL } from "../utils/constants";
 const Header = () => {
-
-  const [name,setName] = useState("LogIn");
-  const nameHandler = () =>{
-    
+  const [name, setName] = useState("LogIn");
+  const nameHandler = () => {
     name === "LogIn" ? setName("LogOut") : setName("LogIn");
-  }
+  };
   return (
     <div className="header">
       <div className="logo-container">
@@ -16,11 +14,19 @@ const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About us</li>
-          <li>Contact us</li>
+          <li>
+            <Link to="/"> Home </Link>
+          </li>
+          <li>
+            <Link to="/about"> About Us </Link>
+          </li>
+          <li>
+            <Link to="/contact"> Contact Us </Link>
+          </li>
           <li>Cart</li>
-          <button onClick={nameHandler} className="login">{name}</button>
+          <button onClick={nameHandler} className="login">
+            {name}
+          </button>
         </ul>
       </div>
     </div>
