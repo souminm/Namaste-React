@@ -13,12 +13,14 @@
     display: flex;
     list-style-type: none;
     font-size: 24px;
- 
 }
 
 .nav-items > ul >li{
     padding: 20px;
     margin : 10px;
+}
+.nav-items > ul > li > a{
+    text-decoration: none;
 }
 
 .res-card{
@@ -78,4 +80,9 @@
 
 .filter{
     display: flex;
+}
+
+.user-card{
+    padding: 10px;
+    border: 1px solid black;
 }
