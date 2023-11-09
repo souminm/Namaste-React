@@ -4,24 +4,23 @@ import React from "react";
 class UserClass extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       userInfo : {
         name : 'dummy',
         avatar_url:'default',
       }
     };
-    console.log(this.props.name+'child constructor');
+    // console.log(this.props.name+'child constructor');
   }
   async componentDidMount(){
-    console.log(this.props.name+"Child componentDidMount()");
+    // console.log(this.props.name+"Child componentDidMount()");
    const data = await fetch('https://api.github.com/users/souminm');
    const json =  await data.json();
   //  debugger;
    this.setState({
     userInfo : json
    })
-   console.log(json);
+  //  console.log(json);
   }
 
   componentDidUpdate(){
