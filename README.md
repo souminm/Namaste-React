@@ -48,3 +48,12 @@ Different dev and production bundles
 
 - Client Side Routing
 - Server Side Routing
+
+# Redux ToolKit
+- Install @reduxjs/toolkit and react-redux 
+- Build our store
+- connect our store to our app
+- create a slice (cartSlice)
+- dispatch an action
+- read the data using selector
+

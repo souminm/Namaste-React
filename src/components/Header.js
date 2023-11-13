@@ -1,16 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import { LOGO_URL } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 const Header = () => {
   const [name, setName] = useState("LogIn");
+
   const nameHandler = () => {
     name === "LogIn" ? setName("LogOut") : setName("LogIn");
   };
   const onlineStatus = useOnlineStatus();
-  const {loggedInUser} = useContext(UserContext);
+  const { loggedInUser } = useContext(UserContext);
+  //Selector : to subscribe the component to the redux. It's a hook
+  //getting access to store using useSelector hook.
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems, "items");
 
   return (
     <div className="flex justify-between bg-pink-100 shadow-lg">
@@ -32,7 +38,9 @@ const Header = () => {
           <li className="p-4">
             <Link to="/grocery"> Grocery </Link>
           </li>
-          <li className="p-4">Cart</li>
+          <li className="p-4 font-bold text-xl">
+            <Link to="/cart">Cart - ({cartItems?.length} items)</Link>
+          </li>
           <button onClick={nameHandler} className="login">
             {name}
           </button>
