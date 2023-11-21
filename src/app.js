@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { Provider } from "react-redux";
 import appStore from "./utils/AppStore";
 import Cart from "./components/Cart";
+import Footer from "./components/Footer";
 // import Grocery from "./components/Grocery";
 
 //chunking
@@ -42,6 +43,7 @@ const AppLayout = () => {
       <div className="app">
         <Header />
         <Outlet />
+        <Footer/>
       </div>
     </UserContext.Provider>
     </Provider>
