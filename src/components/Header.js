@@ -16,7 +16,7 @@ const Header = () => {
   //Selector : to subscribe the component to the redux. It's a hook
   //getting access to store using useSelector hook.
   const cartItems = useSelector((store) => store.cart.items);
-  console.log(cartItems, "items");
+  // console.log(cartItems, "items");
 
   return (
     <div className="flex justify-between bg-pink-100 shadow-lg">
